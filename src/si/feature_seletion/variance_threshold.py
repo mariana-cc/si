@@ -1,58 +1,66 @@
 import numpy as np
-from data.dataset import Dataset
+from si.data.dataset_module import Dataset
 
 class VarianceThreshold:
-    '''
-    Classe que integra os métodos de análise e remoção dos fetaures com um valor de variância abaixo do
-    valor de threshold
-    '''
-    def __init__(self, threshold):
-        '''
-        Método que inicializa
-        :param threshold: float, valor de corte
-        '''
+    """
+    It integrates the methods for Variance Threshold feature selection. It selects and remover the features with
+    a variance value below a given threshold value.
+    """
+    def __init__(self, threshold: float = 0.0):
+        """
+        Initializes the variance threshold.
+        :param threshold: float, threshold value to use for feature selection
+        """
+        #condition
+        if threshold < 0:
+            raise ValueError("Threshold must be non-negative")
+        #parameter
         self.threshold = threshold
+        #atribute
         self.variance = None #para já está vazio porque nós não temos o dataset aqui
 
-    def fit(self, dataset):
-        '''
-        Método que recebe o dataset e estima o atributo a partir dos dados, sendo que neste caso calcula a variância
-        para cada coluna/feature
-        :param dataset: Dataset, input dataset
+    def fit(self, dataset: Dataset):
+        """
+        It receives the dataset and estimates the attribute from the data. In this case,
+        calculates the variance of each feature (column).
+        :param dataset: Dataset, dataset object
         :return: self
-        '''
-        variance = np.var(dataset.x) #ou podíamos usar o método da aula passada
+        """
+        variance = np.var(dataset.X, axis=0) #ou podíamos usar o método da aula passada
         self.variance = variance #atribuir a variável
         return self
 
-    def transform(self, dataset):
-        '''
-        Método que seleciona todas as features com variância (calculada através do método fit) superiores ao valor
-        de threshold (valor de corte dado pelo utilizador)
-        :param dataset: input dataset
-        :return: dataset com as variáveis selecionadas
-        '''
+    def transform(self, dataset: Dataset):
+        """
+        It removes all the features whose variance (calculated with the method above) isn't superior to the
+        threshold.
+        :param dataset: Dataset, dataset object
+        :return: Dataset, dataset with the selected features
+        """
         mask = self.variance > self.threshold #mask é valor boolean para identificar as colunas que estão acima
         X = dataset.X[:, mask]
-        return Dataset(X=X, y=dataset.y, features = list(features), label = dataset.label)
+        #dataset com todas as linhas/amostras mas apenas com as colunas/features selecionadas nas mask
+        return Dataset(X=X, y=dataset.y, features = dataset.features, label = dataset.label)
 
     def fit_transform(self, dataset):
-        '''
-        Método que executa o método fit e depois o método transform
-        :param dataset: input dataset
-        :return: dataset com as variáveis selecionadas
-        '''
+        """
+        It fits and transforms the data. Calculates the variance of each feature and then selects the features
+        with a variance superior to the threshold.
+        :param dataset: Dataset, dataset object
+        :return: Dataset, dataset with the selected features
+        """
         self.fit(dataset)
         return self.transform(dataset)
 
 if __name__ == '__main__':
-    dataset = Dataset(X = np.array([[0,2,0,3],
-                                    [0,1,4,3],
-                                    [0,1,1,3]]),
-                      y = np.array([0,1,0]),
+    from si.data.dataset_module import Dataset
+    dataset = Dataset(X = np.array([[0, 2, 0, 3],
+                                    [0, 1, 4, 3],
+                                    [0, 1, 1, 3]]),
+                      y = np.array([0, 1, 0]),
                       features = ["f1", "f2", "f3", "f4"],
                       label = "y")
-    select = VarianceThreshold(0) #dar o valor de corte que queremos considerar
+    select = VarianceThreshold() #dar o valor de threshold que queremos considerar
     select = select.fit(dataset)
     dataset = select.transform(dataset)
     print(dataset)
