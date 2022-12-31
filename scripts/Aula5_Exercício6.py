@@ -10,8 +10,8 @@ from sklearn.preprocessing import StandardScaler
 
 # Aula 5 - não foi possível realizar os exercícios em Jupyter Notebook
 
-# Exercise 6.2.
-# 6.2.1. - Use the dataset cpu.csv and the package matplotlib to visualize the behavior of the cost function
+# Exercise 6
+# - Use the dataset cpu.csv and the package matplotlib to visualize the behavior of the cost function
 # in the RidgeRegression model.
 
 # Read csv file - cpu.csv
@@ -33,7 +33,7 @@ rr.cost(cpu_test)
 rr.cost_history
 rr.cost_function_plot()
 
-# 6.2.2. - Use the dataset breast-bin.csv and the package matplotlib to visualize the behavior of the cost function
+# - Use the dataset breast-bin.csv and the package matplotlib to visualize the behavior of the cost function
 # in the LogisticRegression model.
 
 # Read csv file - breast-bin.csv
@@ -47,7 +47,7 @@ breast.X = StandardScaler().fit_transform(breast.X)
 breast_train, breast_test = train_test_split(breast, test_size=0.3, random_state=2)
 
 # Logistic Regression
-lr = LogisticRegression(max_iter=2000)
+lr = LogisticRegression(l2_penalty= 1, alpha= 0.001, max_iter=2000)
 lr.fit(breast_train)
 lr.predict(breast_test)
 lr.score(breast_test)

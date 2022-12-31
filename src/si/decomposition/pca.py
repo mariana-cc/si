@@ -82,11 +82,5 @@ if __name__ == "__main__":
     X_reduced = pca.transform(new_dataset)
     print(X_reduced)
 
-    #Exercício 3 - 3.3
-    path = "../../../datasets/iris.csv"
-    file_iris = read_csv(filename=path, sep=",", features=True, label=True)
-    pca_iris = PCA(n_components=2)
-    iris_reduced = pca_iris.fit_transform(file_iris)
-    print(iris_reduced)
 
 
