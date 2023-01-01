@@ -65,12 +65,11 @@ lr3_param = {'l2_penalty': np.linspace(start=1, stop=10, num=10),
              'max_iter': np.linspace(start=1000, stop=2000, num=200)}
 
 # (5.1) cross validate the model with 3 folds
-#scores_3 = randomized_search_cv(lr3, breast, lr3_param, cv=3)
+scores_3 = randomized_search_cv(lr3, breast, lr3_param, cv=3)
 
 # (5.2) cross validate the model with 10 folds
-#scores_10 = randomized_search_cv(lr3, breast, lr3_param, cv=10)
+scores_10 = randomized_search_cv(lr3, breast, lr3_param, cv=10)
 
 # (6) What is the score obtained?
-#print(f"The scores with 3 folds: {scores_3}")
-#print(f"The scores with 10 folds: {scores_10}")
-print(lr3_param)
+print(f"The scores with 3 folds: {scores_3}")
+print(f"The scores with 10 folds: {scores_10}")

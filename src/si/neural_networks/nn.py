@@ -37,16 +37,19 @@ class NN:
 
         for epoch in range(1, self.epochs +1):
             #forward propagation
+            y_pred = np.array(dataset.X)
+            y_true = np.reshape(dataset.y, (-1, 1))
+
             for layer in self.layers:
-                X = layer.forward(X)
+                y_true = layer.forward(X)
 
             #backward propagation
-            error = self.loss_derivative(y, X)
+            error = self.loss_derivative(y_true, y_pred)
             for layer in self.layers[::-1]: # last layer
                 error = layer.backward(error, self.learning_rate)
 
             #save history
-            cost = self.loss(y, X)
+            cost = self.loss(y_true, y_pred)
             self.history[epoch] = cost
 
             #print loss - loss function

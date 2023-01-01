@@ -27,7 +27,7 @@ class Dense:
         return np.dot(X, self.weights) + self.bias
         # dot to multiply the matrix
 
-    def backwards(self, error: np.ndarray, learning_rate: float) -> np.ndarray:
+    def backward(self, error: np.ndarray, learning_rate: float) -> np.ndarray:
         """
         It computes the backward pass of the layer. Returns the error of the previous layer.
         :param error: np.ndarray, error value of the loss function
@@ -64,7 +64,7 @@ class SigmoidActivation:
         self.X = X
         return 1/ (1+ np.exp(-self.X)) # sigmoid function
 
-    def backward(self, error: np.ndarray) -> np.ndarray:
+    def backward(self, error: np.ndarray, learning_rate: float) -> np.ndarray:
         """
         It performs a backward pass of the layer. Returns the error of the previous layer.
         :param error: np.ndarray, error value of the loss function
@@ -124,7 +124,7 @@ class ReLUActivation:
         return formula_relu
 
 # Exercise 12 - 12.1.
-    def backward(self, X: np.ndarray, error: np.ndarray) -> np.ndarray:
+    def backward(self, error: np.ndarray, learning_rate: float) -> np.ndarray:
         """
         It performs a backward pass of the layer. Returns the error of the previous layer.
         :param error: np.ndarray, error value of the loss function
@@ -147,13 +147,13 @@ class LinearActivation:
         """
         pass
 
-    def forward(X: np.ndarray) -> np.ndarray:
+    def forward(input_data: np.ndarray) -> np.ndarray:
         """
         It computes the linear relationship.
         :param X: np.ndarray, input to the layer
         :return: np.ndarray, the linear relationship
         """
-        return X
+        return input_data
 
 
 

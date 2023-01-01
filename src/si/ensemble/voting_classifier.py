@@ -14,7 +14,7 @@ class VotingClassifier:
         #parameter
         self.models = models
 
-    def fit(self, dataset: Dataset):
+    def fit(self, dataset: Dataset) -> 'VotingClassifier':
         """
         It fits the models according to the given training data.
         :param dataset: Dataset, training dataset

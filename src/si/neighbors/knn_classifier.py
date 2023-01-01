@@ -22,7 +22,7 @@ class KNNClassifier:
         #attributes
         self.dataset = None
 
-    def fit(self, dataset: Dataset):
+    def fit(self, dataset: Dataset) -> 'KNNClassifier':
         """
         It fits the model to the given dataset. Stores the training dataset.
         :param dataset: Dataset, dataset object

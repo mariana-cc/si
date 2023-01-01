@@ -23,7 +23,7 @@ class KNNRegressor:
         #attributes
         self.dataset = None
 
-    def fit(self, dataset: Dataset):
+    def fit(self, dataset: Dataset) -> 'KNNRegressor':
         """
         It fits the model to the given dataset. Stores the training dataset.
         :param dataset: Dataset, dataset object

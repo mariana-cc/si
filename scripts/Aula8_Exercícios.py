@@ -1,5 +1,4 @@
 main = "../src/si"
-import numpy as np
 from si.io.csv_file import read_csv
 from si.linear_model.logistic_regression import LogisticRegression
 from si.model_selection.split import train_test_split
@@ -29,7 +28,7 @@ kmer_train, kmer_test = train_test_split(kmer_dataset)
 # (5) Train Logistic Regression model for nucleotide composition
 lr = LogisticRegression(l2_penalty= 1, alpha= 0.001, max_iter=2000)
 lr.fit(kmer_train)
-score = lr.score(kmer_train)
+score = lr.score(kmer_test)
 
 # (6) What is the score obtained?
 print(f"The score for nucleotide composition: {score}")
@@ -43,7 +42,7 @@ transporters = read_csv(filename=transporters_file, sep=",", features=True, labe
 # (2) Use KMer to get the frequency of each substring in each sequence of the dataset
 # Substring size (k): 2
 kmer_pep = KMer(k = 2, alphabet='peptide')
-kmer_pep_dataset = kmer.fit_transform(transporters)
+kmer_pep_dataset = kmer_pep.fit_transform(transporters)
 
 # (3) Standardize features by removing the mean and scaling to unit variance.
 kmer_pep_dataset.X = StandardScaler().fit_transform(kmer_pep_dataset.X)
@@ -54,7 +53,7 @@ kmer_pep_train, kmer_pep_test = train_test_split(kmer_pep_dataset)
 # (5) Train Logistic Regression model for peptide composition
 lr = LogisticRegression(l2_penalty= 1, alpha= 0.001, max_iter=2000)
 lr.fit(kmer_pep_train)
-score = lr.score(kmer_pep_train)
+score = lr.score(kmer_pep_test)
 
 # (6) What is the score obtained?
 print(f"The score for peptide composition: {score}")

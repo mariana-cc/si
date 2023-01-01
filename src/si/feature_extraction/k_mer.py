@@ -14,6 +14,15 @@ class KMer:
         # Parameters
         self.k = k
         self.alphabet = alphabet # Exercise 9 - add new parameter alphabet
+
+        # for dna
+        if self.alphabet == "dna":
+            # alphabet of DNA (nucleotides)
+            self.alphabet = "ACTG"
+        # for peptide
+        elif self.alphabet == "peptide": # alphabet of peptides (amino acids)
+            self.alphabet = "ACDEFGHIKLMNPQRSTVWYXBZJ"
+
         # Attributes
         self.k_mers = None
 
@@ -24,10 +33,10 @@ class KMer:
         :return: self, fitted descriptor
         """
         # generate the k-mers
-        self.k_mers = [''.join(k_mer) for k_mer in itertools.product('ACTG', repeat=self.k)]
+        self.k_mers = [''.join(k_mer) for k_mer in itertools.product(self.alphabet, repeat=self.k)]
         return self
 
-    def _get_sequence_k_mer_composition(self, sequence: str) -> np.ndarray:
+    def _get_counts_k_mer(self, sequence: str) -> np.ndarray:
         """
         It calculates the k-mer composition of the sequence.
         :param sequence: str, the sequence to calculate the k-mer composition for
@@ -50,12 +59,12 @@ class KMer:
         :return: Dataset, transformed dataset
         """
         # calculate the k-mer composition
-        sequences_k_mer_composition = [self._get_sequence_k_mer_composition(sequence)
+        _get_counts_k_mer = [self._get_counts_k_mer(sequence)
                                        for sequence in dataset.X[:, 0]]
-        sequences_k_mer_composition = np.array(sequences_k_mer_composition)
+        _get_counts_k_mer = np.array(_get_counts_k_mer)
 
         # create a new dataset
-        return Dataset(X=sequences_k_mer_composition, y=dataset.y, features=self.k_mers, label=dataset.label)
+        return Dataset(X=_get_counts_k_mer, y=dataset.y, features=self.k_mers, label=dataset.label)
 
     def fit_transform(self, dataset: Dataset) -> Dataset:
         """

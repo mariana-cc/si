@@ -34,8 +34,8 @@ def cross_entropy_derivative(y_true: np.ndarray, y_pred: np.ndarray):
 if __name__ == "__main__":
     true_l = np.array([0,1,1,1,0,1])
     predict_l = np.array([0.9,0.1,0.1,0.9,0.1,0.9])
-    # cross-Entropy
+    # cross-entropy
     print(f"Cross-Entropy: {cross_entropy(true_l, predict_l):.4f}")
-    # cross-Entropy derivative
+    # cross-entropy derivative
     print(f"d(Cross-Entropy)/d(y_pred): {cross_entropy_derivative(true_l, predict_l)}")
 

@@ -171,7 +171,7 @@ class Dataset:
         y = np.random.randint(0, n_classes, n_samples)
         return cls(X, y, features=features, label=label)
 
-#Exercicio 2 de avaliação
+# Exercise 2
 
     def dropna(self):
         """
