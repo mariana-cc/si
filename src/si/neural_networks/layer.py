@@ -43,7 +43,7 @@ class Dense:
         self.bias = self.bias - learning_rate * np.sum(error, axis=0)
         return error_to_propagate
 
-class SigmoideActivation:
+class SigmoidActivation:
     """
      A sigmoid activation layer.
     """
@@ -54,15 +54,112 @@ class SigmoideActivation:
         # Attribute
         self.X = None
 
-    def forward:
+    def forward(self, X: np.ndarray) -> np.ndarray:
+        """
+        It performs a forward pass of the layer using the given input.
+        Returns a 2 dimension numpy array with shape (1, output_size).
+        :param X: np.ndarray, input to the layer
+        :return: np.ndarray, output to the layer
+        """
         self.X = X
-        return 1/ (1+ np.exp(-X))
+        return 1/ (1+ np.exp(-self.X)) # sigmoid function
 
-    def backward(self, error, learning_rate):
-        sigmoide_derivative = 1 / (1+ np.exp(-self.X))
-        sigmoide_derivative = simple_derivate * (1 - sigmoide_derivative)
+    def backward(self, error: np.ndarray) -> np.ndarray:
+        """
+        It performs a backward pass of the layer. Returns the error of the previous layer.
+        :param error: np.ndarray, error value of the loss function
+        :param learning_rate: float, learning rate
+        :return: np.ndarray, error of the previous layer
+        """
+        sigmoid_derivative = (1 / (1+ np.exp(-self.X))) * (1 - (1 / (1 + np.exp(- self.X))))
+        error_to_propagate = error * sigmoid_derivative
+        return error_to_propagate
 
-        #falta coisas
+# Exercise 10 - 10.1. Add a new layer SoftMaxActivation
+
+class SoftMaxActivation:
+    """
+    A SoftMax activation layer.
+    """
+    def __init__(self):
+        """
+        Initialize the SoftMax activation layer.
+        """
+        pass
+
+    def forward(self, X: np.ndarray) -> np.ndarray:
+        """
+        It performs a forward pass of the layer using the given input.
+        Returns a 2 dimension numpy array with shape (1, output_size).
+        :param X: np.ndarray, input to the layer
+        :return: np.ndarray, output to the layer
+        """
+        # exponential of vetor zi (ezi)
+        ezi = np.exp(X - np.max(X))
+        # formula: ezi / sum of ezi
+        formula = ezi / np.sum(ezi, axis=1, keepdims=True)
+        # axis=1 means the sum happens by row
+        # keepdims=True means the dimension of the array is kept
+        return formula
+
+# Exercise 10 - 10.2. Add a new layer ReLUActivation
+class ReLUActivation:
+    """
+    A rectified linear (ReLu) activation layer.
+    """
+    def __init__(self):
+        """
+        Initialize the ReLu activation layer.
+        """
+        self.X = None
+    def forward(self, X: np.ndarray) -> np.ndarray:
+        """
+        It performs a forward pass of the layer using the given input.
+        Returns a 2 dimension numpy array with shape (1, output_size).
+        :param X: np.ndarray, input to the layer
+        :return: np.ndarray, output to the layer
+        """
+        self.X = X
+        # formula: maximum between between 0 and X, using 0 as minimum, so we don't have negative values
+        formula_relu = np.maximum(0, self.X)
+        return formula_relu
+
+    def backward(self, X: np.ndarray, error: np.ndarray) -> np.ndarray:
+        """
+        It performs a backward pass of the layer. Returns the error of the previous layer.
+        :param error: np.ndarray, error value of the loss function
+        :param learning_rate: float, learning rate
+        :return: np.ndarray, error of the previous layer
+        """
+        relu_derivative = np.where(self.X > 0, 1, 0)
+        error_to_propagate = error * relu_derivative
+        return error_to_propagate
+
+# For Exercise 10.5. - Add new layer LinearActivation
+class LinearActivation:
+    """
+    A linear activation layer.
+    """
+    def __init__(self):
+        """
+        Initialize the linear activation layer.
+        """
+        pass
+
+    def forward(X: np.ndarray) -> np.ndarray:
+        """
+        It computes the linear relationship.
+        :param X: np.ndarray, input to the layer
+        :return: np.ndarray, the linear relationship
+        """
+        return X
+
+
+
+
+
+
+
 
 
 
