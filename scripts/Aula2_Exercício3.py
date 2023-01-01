@@ -10,12 +10,14 @@ from si.feature_seletion.select_percentile import SelectPercentile
 # Read csv file - iris.csv
 iris_file = "../datasets/iris.csv"
 iris = read_csv(filename=iris_file, sep=",", features=True, label=True)
-iris_df = iris.print_dataframe()
 
 # SelectPercentile
-selector = SelectPercentile(percentile = 20, score_func = f_classification)
-selector.fit_transform(iris_df)
-selector.f_value
-selector.p_value
-transformed_df = selector.fit_transform(iris_df)
-transformed_df.shape()
+selector = SelectPercentile(score_func = f_classification, percentile = 20)
+selector.fit_transform(iris)
+F_value = selector.F
+p_value = selector.p
+print(F_value)
+print(p_value)
+transformed_df = selector.fit_transform(iris)
+print(transformed_df.shape())
+

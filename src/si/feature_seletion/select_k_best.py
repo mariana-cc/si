@@ -18,7 +18,7 @@ class SelectKBest:
         self.F = None #ainda não os temos
         self.p = None
 
-    def fit(self, dataset):
+    def fit(self, dataset: Dataset) -> SelectKBest:
         """
         It fits SelectKBest to compute the F scores and p-values for each feature, using the function score_func.
         :param dataset: Dataset, dataset object
@@ -53,6 +53,6 @@ if __name__ == '__main__':
     select = SelectKBest(f_classification,1) #chamar o método f_classification p/ o cálculo e introduzir valor de k
     select = select.fit(dataset_create)
     new_dataset = select.transform(dataset_create)
-    print(new_dataset)
+    print(new_dataset.X)
 
 

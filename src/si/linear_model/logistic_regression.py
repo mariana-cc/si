@@ -1,7 +1,8 @@
 import numpy as np
 from si.data.dataset_module import Dataset
-from si.statistics import sigmoid_function
-from si.metrics import accuracy
+from si.statistics.sigmoid_function import sigmoid_function
+from si.metrics.accuracy import accuracy
+
 
 class LogisticRegression:
     """
@@ -50,6 +51,7 @@ class LogisticRegression:
         # gradient descent
         for i in range(self.max_iter):
             # predicted y
+            y_pred = np.dot(dataset.X, self.theta) + self.theta_zero
             y_pred = sigmoid_function(y_pred)
 
             # computing and updating the gradient with the learning rate

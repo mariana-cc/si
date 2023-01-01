@@ -21,7 +21,7 @@ kmer_dataset = kmer.fit_transform(tfbs)
 kmer_dataset.print_dataframe()
 
 # (3) Standardize features by removing the mean and scaling to unit variance.
-kmer_dataset.X = StandardScaler().fit_transform(tfbs.X)
+kmer_dataset.X = StandardScaler().fit_transform(kmer_dataset.X)
 
 # (4) Split dataset in training and testing sets
 kmer_train, kmer_test = train_test_split(kmer_dataset)
@@ -44,10 +44,9 @@ transporters = read_csv(filename=transporters_file, sep=",", features=True, labe
 # Substring size (k): 2
 kmer_pep = KMer(k = 2, alphabet='peptide')
 kmer_pep_dataset = kmer.fit_transform(transporters)
-kmer_pep_dataset.print_dataframe()
 
 # (3) Standardize features by removing the mean and scaling to unit variance.
-kmer_pep_dataset.X = StandardScaler().fit_transform(transporters.X)
+kmer_pep_dataset.X = StandardScaler().fit_transform(kmer_pep_dataset.X)
 
 # (4) Split dataset in training and testing sets
 kmer_pep_train, kmer_pep_test = train_test_split(kmer_pep_dataset)

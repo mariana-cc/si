@@ -60,7 +60,7 @@ lr = LogisticRegression(l2_penalty= 1, alpha= 0.001, max_iter=2000)
 knn_final = KNNClassifier(k=2, distance=euclidean_distance)
 
 # (7) Create VotingClassifier ensemble model using the previous classifiers and using final model knn
-stacking = StackingClassifier([lr, knn], final_model)
+stacking = StackingClassifier([lr, knn], knn_final)
 
 # (7) Train the model
 stacking.fit(breast_train)

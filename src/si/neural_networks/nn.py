@@ -36,9 +36,9 @@ class NN:
         y = dataset.y
 
         for epoch in range(1, self.epochs +1):
-            #foward propagation
+            #forward propagation
             for layer in self.layers:
-                X = layer.foward(X)
+                X = layer.forward(X)
 
             #backward propagation
             error = self.loss_derivative(y, X)

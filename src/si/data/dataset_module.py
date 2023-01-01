@@ -11,7 +11,7 @@ class Dataset:
         """
         It initializes the dataset.
 
-        :param x: numpy.ndarray, features matrix (n_samples, n_features) - independent variables
+        :param X: numpy.ndarray, features matrix (n_samples, n_features) - independent variables
         :param y: np.ndarray, label vector (n_samples, 1) - dependent variable
         :param features: list of str, features names (n_features)
         :param label: str, label name
@@ -200,12 +200,12 @@ class Dataset:
 
 
 if __name__ == '__main__':
-    #x = np.array([[1,2,3], [1,2,3]])
-    #y = np.array([1,2])
-    #features = ["A", "B", "C"]
-    #label = "y"
-    #dataset = Dataset(x=x, y=y, features =features, label=label)
-    #print(dataset.shape())
+    X = np.array([[1,2,3], [1,2,3]])
+    y = np.array([1,2])
+    features = ["A", "B", "C"]
+    label = "y"
+    dataset = Dataset(X=X, y=y, features =features, label=label)
+    print(dataset.shape())
     #print(dataset.has_label())
     #print(dataset.get_classes())
     #print(dataset.get_mean())
@@ -215,11 +215,4 @@ if __name__ == '__main__':
     #print(dataset.get_max())
     #print(dataset.summary())
 
-    X = np.array([[1, 2, 3], [1, 2, 3], [1, 2, None], [1, 2, 3], [None, 2, 3]])
-    y = np.array([1, 2, 3, 4, 5])
-    features = ["A", "B", "C"]
-    label = "y"
-    dataset = Dataset(X=X, y=y, features=features, label=label)
 
-    print(dataset.print_dataframe())
-    print(dataset.dropna().print_dataframe())

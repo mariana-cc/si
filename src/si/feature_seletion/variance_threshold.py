@@ -11,15 +11,15 @@ class VarianceThreshold:
         Initializes the variance threshold.
         :param threshold: float, threshold value to use for feature selection
         """
-        #condition
+        # condition
         if threshold < 0:
             raise ValueError("Threshold must be non-negative")
-        #parameter
+        # Parameter
         self.threshold = threshold
-        #atribute
+        # Attribute
         self.variance = None #para já está vazio porque nós não temos o dataset aqui
 
-    def fit(self, dataset: Dataset):
+    def fit(self, dataset: Dataset) -> 'VarianceThreshold':
         """
         It receives the dataset and estimates the attribute from the data. In this case,
         calculates the variance of each feature (column).
@@ -30,7 +30,7 @@ class VarianceThreshold:
         self.variance = variance #atribuir a variável
         return self
 
-    def transform(self, dataset: Dataset):
+    def transform(self, dataset: Dataset) -> Dataset:
         """
         It removes all the features whose variance (calculated with the method above) isn't superior to the
         threshold.
@@ -38,19 +38,20 @@ class VarianceThreshold:
         :return: Dataset, dataset with the selected features
         """
         mask = self.variance > self.threshold #mask é valor boolean para identificar as colunas que estão acima
-        X = dataset.X[:, mask]
-        #dataset com todas as linhas/amostras mas apenas com as colunas/features selecionadas nas mask
-        return Dataset(X=X, y=dataset.y, features = dataset.features, label = dataset.label)
+        n_X = dataset.X[:, mask] # dataset com todas as linhas/amostras mas apenas com as colunas/features
+        # selecionadas nas mask
+        features = np.array(dataset.features)[mask] # selects features with threshold > variance
+        return Dataset(n_X, y=dataset.y, features=list(features), label = dataset.label)
 
-    def fit_transform(self, dataset):
+    def fit_transform(self, dataset: Dataset) -> Dataset:
         """
         It fits and transforms the data. Calculates the variance of each feature and then selects the features
         with a variance superior to the threshold.
         :param dataset: Dataset, dataset object
         :return: Dataset, dataset with the selected features
         """
-        self.fit(dataset)
-        return self.transform(dataset)
+        fitted_model = self.fit(dataset)
+        return self.transform(fitted_model)
 
 if __name__ == '__main__':
     from si.data.dataset_module import Dataset
@@ -62,8 +63,8 @@ if __name__ == '__main__':
                       label = "y")
     select = VarianceThreshold() #dar o valor de threshold que queremos considerar
     select = select.fit(dataset)
-    dataset = select.transform(dataset)
-    print(dataset)
+    dataset_t = select.transform(dataset)
+    print(dataset_t.X)
 
 
 

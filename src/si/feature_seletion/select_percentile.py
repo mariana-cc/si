@@ -20,7 +20,7 @@ class SelectPercentile():
         self.F = None #ainda não os temos
         self.p = None
 
-    def fit(self, dataset: Dataset):
+    def fit(self, dataset: Dataset) -> 'SelectPercentile':
         """
         It fits SelectPercentil to compute the F scores and p-values for each feature, using the function score_func.
         :param dataset: Dataset, dataset object
@@ -37,8 +37,8 @@ class SelectPercentile():
         :return: Dataset, dataset with selected features
         """
         value = int(len(dataset.features)) #valor total de features no dataset
-        mask = value * (percentile/100) #percentil dado em percentagem
-        idxs = np.argsort(self.F)[- mask:]
+        mask = value * (self.percentile/100) #percentil dado em percentagem
+        idxs = np.argsort(self.F)[- int(mask):]
         features = np.array(dataset.features)[idxs]  # vai selecionar as features utilizando os indxs
         features_dataset = dataset.X[:, idxs]
         return Dataset(features_dataset, y=dataset.y, features=list(features), label=dataset.label)
@@ -59,4 +59,5 @@ if __name__ == '__main__':
     select = SelectPercentile(f_classification,20)
     select = select.fit(dataset_create)
     new_dataset = select.transform(dataset_create)
-    print(new_dataset)
+    print(new_dataset.X)
+

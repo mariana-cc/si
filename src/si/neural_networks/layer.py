@@ -17,7 +17,7 @@ class Dense:
         self.weights = np.random.randn(input_size, output_size) * 0.01
         self.bias = np.zeros((1, output_size))
 
-    def foward (self, X: np.ndarray) -> np.ndarray:
+    def forward (self, X: np.ndarray) -> np.ndarray:
         """
         It performs forward pass of the layer using the given input.
         Returns a 2 dimension numpy array with shape (1, output_size).
@@ -68,7 +68,6 @@ class SigmoidActivation:
         """
         It performs a backward pass of the layer. Returns the error of the previous layer.
         :param error: np.ndarray, error value of the loss function
-        :param learning_rate: float, learning rate
         :return: np.ndarray, error of the previous layer
         """
         sigmoid_derivative = (1 / (1+ np.exp(-self.X))) * (1 - (1 / (1 + np.exp(- self.X))))
@@ -124,14 +123,16 @@ class ReLUActivation:
         formula_relu = np.maximum(0, self.X)
         return formula_relu
 
+# Exercise 12 - 12.1.
     def backward(self, X: np.ndarray, error: np.ndarray) -> np.ndarray:
         """
         It performs a backward pass of the layer. Returns the error of the previous layer.
         :param error: np.ndarray, error value of the loss function
-        :param learning_rate: float, learning rate
         :return: np.ndarray, error of the previous layer
         """
+        # replace all positive elements (>0) to 1 and set all negative elements (<0) to 0 - using np.where
         relu_derivative = np.where(self.X > 0, 1, 0)
+        # multiplication between error and previous values
         error_to_propagate = error * relu_derivative
         return error_to_propagate
 

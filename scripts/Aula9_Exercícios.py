@@ -43,3 +43,6 @@ layer5_3 = Dense(input_size=16, output_size=1)
 layer5_1activation = ReLUActivation()
 layer5_2activation = ReLUActivation()
 layer5_3activation = LinearActivation()
+
+model10_5 = NN(layers=[layer5_1, layer5_1activation, layer5_2, layer5_2activation, layer5_3, layer5_3activation])
+

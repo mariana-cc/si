@@ -30,7 +30,6 @@ rr.fit(cpu_train)
 rr.predict(cpu_test)
 rr.score(cpu_test)
 rr.cost(cpu_test)
-rr.cost_history
 rr.cost_function_plot()
 
 # - Use the dataset breast-bin.csv and the package matplotlib to visualize the behavior of the cost function
@@ -52,6 +51,5 @@ lr.fit(breast_train)
 lr.predict(breast_test)
 lr.score(breast_test)
 lr.cost(breast_test)
-lr.cost_history
 lr.cost_function_plot()
 

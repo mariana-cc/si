@@ -18,7 +18,7 @@ def mse_derivative(y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
     It returns the derivative of the mean squared error for the y_pred variable.
     :param y_true: np.ndarray, true labels (y values) of the dataset
     :param y_pred: np.ndarray, predicted labels (y values) of the dataset
-    :return: np.ndarray, the derivate of the MSE of the model
+    :return: np.ndarray, the derivative of the MSE of the model
     """
     return -2 * (y_true - y_pred) / (len(y_true) * 2)
 

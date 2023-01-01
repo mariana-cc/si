@@ -24,7 +24,7 @@ lr = LogisticRegression(l2_penalty= 1, alpha= 0.001, max_iter=2000)
 scores = cross_validate(lr, breast, cv=5)
 
 # (5) What is the score obtained?
-print(f"The cross validation scores: {score}")
+print(f"The cross validation scores: {scores}")
 
 # - Exercise 2: Test the grid_search using the breast-bin.csv dataset
 
@@ -42,7 +42,7 @@ lr2 = LogisticRegression(l2_penalty= 1, alpha= 0.001, max_iter=2000)
 lr2_param = {'l2_penalty': [1, 10], 'alpha': [0.001, 0.0001], 'max_iter': [1000, 2000]}
 
 # (5) cross validate the model with 3 folds
-scores = cross_validate(lr2_param, breast, cv=3)
+scores = cross_validate(lr2, breast, cv=3)
 
 # (6) What is the score obtained?
 print(f"The scores: {scores}")
@@ -60,17 +60,17 @@ breast.X = StandardScaler().fit_transform(breast.X)
 lr3 = LogisticRegression(l2_penalty= 1, alpha= 0.001, max_iter=2000)
 
 # (4) Perform a randomized search with the following parameters
-lr3_param = {'l2_penalty': np.linspace(1, 10, 10), 'alpha': np.linspace(0.001, 0.0001, 100),
-             'max_iter': np.linspace(1000, 2000, 200)}
+lr3_param = {'l2_penalty': np.linspace(start=1, stop=10, num=10),
+             'alpha': np.linspace(start=0.001, stop=0.0001, num=100),
+             'max_iter': np.linspace(start=1000, stop=2000, num=200)}
 
 # (5.1) cross validate the model with 3 folds
-scores_3 = randomized_search_cv(lr3, breast, lr3_param, cv=3)
+#scores_3 = randomized_search_cv(lr3, breast, lr3_param, cv=3)
 
 # (5.2) cross validate the model with 10 folds
-scores_10 = randomized_search_cv(lr3, breast, lr3_param, cv=10)
+#scores_10 = randomized_search_cv(lr3, breast, lr3_param, cv=10)
 
 # (6) What is the score obtained?
-print(f"The scores with 3 folds: {scores_3}")
-print(f"The scores with 10 folds: {scores_10}")
-
-
+#print(f"The scores with 3 folds: {scores_3}")
+#print(f"The scores with 10 folds: {scores_10}")
+print(lr3_param)
