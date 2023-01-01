@@ -6,13 +6,14 @@ class KMer:
     """
     A sequence descriptor that returns the k-mer composition of the sequence.
     """
-    def __init__(self, k: int = 2):
+    def __init__(self, k: int = 2, alphabet: str = 'dna'):
         """
         Initializes the k-mer object.
         :param k: list of str, the k-mers
         """
         # Parameters
         self.k = k
+        self.alphabet = alphabet # Exercise 9 - add new parameter alphabet
         # Attributes
         self.k_mers = None
 

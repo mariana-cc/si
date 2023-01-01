@@ -16,7 +16,7 @@ tfbs = read_csv(filename=tfbs_file, sep=",", features=True, label=True)
 
 # (2) Use KMer to get the frequency of each substring in each sequence of the dataset
 # Substring size (k): 3
-kmer = KMer(k = 3)
+kmer = KMer(k = 3, alphabet='dna')
 kmer_dataset = kmer.fit_transform(tfbs)
 kmer_dataset.print_dataframe()
 
